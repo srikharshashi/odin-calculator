@@ -5,35 +5,47 @@ const calcobj = {
     operand2: 0,
     result: null,
 };
+let deci=true;
 
 const calctextdiv = document.querySelector(".cont1");
 calctextdiv.textContent = calcobj.result == undefined | calcobj.result == null ? 0 : calcobj.result;
 
 function reset() {
-    calcobj.state=0;
+    calcobj.state = 0;
     calcobj.operand1 = 0;
     calcobj.operand2 = "";
     calcobj.operator = null;
-    calcobj.result=null;
-    calctextdiv.textContent = calcobj.result == undefined | calcobj.result == null | calcobj.result!=0 ? 0 : calcobj.result;
+    calcobj.result = null;
+    calctextdiv.textContent = calcobj.result == undefined | calcobj.result == null | calcobj.result != 0 ? 0 : calcobj.result;
 
 }
 function evalf() {
-    let val=0;
+    let val = 0;
     switch (calcobj.operator) {
-        case "+":val= Number(calcobj.operand1)+Number(calcobj.operand2);
+        case "+": val = Number(calcobj.operand1) + Number(calcobj.operand2);
             break;
-        case "-": val= Number(calcobj.operand1)-Number(calcobj.operand2);;
+        case "-": val = Number(calcobj.operand1) - Number(calcobj.operand2);;
             break;
-        case "%": val= Number(calcobj.operand1)%Number(calcobj.operand2);;
+        case "%": val = Number(calcobj.operand1) % Number(calcobj.operand2);;
             break;
-        case "-": val= Number(calcobj.operand1)-Number(calcobj.operand2);;
+        case "-": val = Number(calcobj.operand1) - Number(calcobj.operand2);;
             break;
-        case "/": val= Number(calcobj.operand1)/Number(calcobj.operand2);;
+        case "/":
+            {
+                if (calcobj.operand2 == 0) {
+                    alert("Division by zero not possible");
+                    reset();
+                    break;
+                }
+                val = Number(calcobj.operand1) / Number(calcobj.operand2);
+            }
             break;
+        case "*":
+            val = Number(calcobj.operand1) * Number(calcobj.operand2);
+            break
 
 
-    } return calcobj.result ==null? val : val+calcobj.result;
+    } return calcobj.result == null ? val : val + calcobj.result;
 
 }
 
@@ -57,10 +69,10 @@ function docalc() {
             } break;
         case 4:
             {
-                const result=evalf();
-                calcobj.result=result;
+                const result = evalf();
+                calcobj.result = result;
                 calctextdiv.textContent = result;
-            }break;
+            } break;
     }
 
 
@@ -79,22 +91,21 @@ const buttons = document.querySelectorAll(".buttons");
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
         console.log(button);
-       console.log(calcobj);
+        console.log(calcobj);
         if (Array.from(button.classList).includes("oper")) {
             if (calcobj.state == 1) {
                 calcobj.state = 2;
                 calcobj.operator = button.textContent;
                 docalc();
             }
-            else if(calcobj.state==4)
-            {
-                calcobj.operand2="0";
-                calcobj.operand1=calcobj.result;
-                calcobj.state=2;
-                calcobj.operator=button.textContent;
-                calcobj.result=null;
+            else if (calcobj.state == 4) {
+                calcobj.operand2 = "0";
+                calcobj.operand1 = calcobj.result;
+                calcobj.state = 2;
+                calcobj.operator = button.textContent;
+                calcobj.result = null;
                 docalc();
-    
+
             }
         }
         switch (button.classList[0]) {
