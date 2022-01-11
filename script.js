@@ -164,6 +164,30 @@ buttons.forEach((button) => {
                     }
                     // calcobj.
                 } break;
+                case "deci":
+                    {
+                        if (calcobj.state == 0) {
+                            //if you click zero when everything is empty
+                            // calcobj.state = 1;
+                            // // calcobj.operand1 = "";
+                            // docalc();
+                        }
+                        else if (calcobj.state == 1) {
+                            calcobj.operand1 += ".";
+                            docalc();
+                        }
+                        else if (calcobj.state == 2) {
+                            calcobj.state++;
+    
+                            calcobj.operand2 += ".";
+                            docalc();
+                        }
+                        else if (calcobj.state == 3) {
+                            calcobj.operand2 += ".";
+                            docalc();
+    
+                        }
+                    } break;
             case "two":
                 {
                     if (calcobj.state == 0) {
