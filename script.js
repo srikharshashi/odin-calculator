@@ -42,7 +42,7 @@ function evalf() {
             break;
         case "*":
             val = Number(calcobj.operand1) * Number(calcobj.operand2);
-            break
+            break;
 
 
     } return calcobj.result == null ? val : val + calcobj.result;
